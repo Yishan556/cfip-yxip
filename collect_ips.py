@@ -32,7 +32,7 @@ IP_PATTERN = re.compile(
     r'(?:\b(?:[A-Fa-f0-9]{1,4}:){2,7}[A-Fa-f0-9]{1,4}\b)'  # IPv6
 )
 
-MAX_PER_SITE = 30  # 每个站点最大抓取数量（总和）
+MAX_PER_SITE = 20  # 每个站点最大抓取数量（总和）
 
 def create_session(retries=2, backoff_factor=0.5, status_forcelist=(500, 502, 503, 504)):
     session = requests.Session()
