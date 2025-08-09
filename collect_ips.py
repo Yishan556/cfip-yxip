@@ -19,6 +19,8 @@ logging.basicConfig(
 URLS = [
     'https://ip.164746.xyz',
     'https://cf.090227.xyz',
+    'https://ipdb.api.030101.xyz/?type=bestproxy&country=true',
+    'https://vps789.com/cfip',
     'https://stock.hostmonit.com/CloudFlareYes',
     'https://www.wetest.vip/page/cloudflare/address_v4.html'
 ]
