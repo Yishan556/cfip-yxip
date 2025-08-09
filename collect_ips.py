@@ -31,7 +31,7 @@ IPV4_RE = re.compile(r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b')
 IPV6_RE = re.compile(r'\b(?:[A-Fa-f0-9]{1,4}:){2,7}[A-Fa-f0-9]{1,4}\b')
 
 # 每个站点最多采集多少个（IPv4+IPv6 混合）
-MAX_PER_SITE = 50
+MAX_PER_SITE = 30
 
 def create_session(retries=2, backoff_factor=0.5, status_forcelist=(500, 502, 503, 504)):
     session = requests.Session()
