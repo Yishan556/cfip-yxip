@@ -20,7 +20,7 @@ logging.basicConfig(
 URLS = [
     'https://ip.164746.xyz',
     'https://cf.090227.xyz',
-    'https://addressesapi.090227.xyz/cmcc-ipv6',
+    'https://ipdb.api.030101.xyz/?type=bestproxy&country=true',
     'https://stock.hostmonit.com/CloudFlareYes',
     'https://www.wetest.vip/page/cloudflare/address_v4.html'
 ]
