@@ -49,7 +49,7 @@
 104.17.182.180	https://ipdb.api.030101.xyz/?type=bestcf&country=true
 104.18.95.85	https://ipdb.api.030101.xyz/?type=bestcf&country=true
 104.16.74.65	https://ip.164746.xyz
-104.16.31.72	https://ip.164746.xyz
+104.17.210.209	https://ip.164746.xyz
 104.19.236.94	https://ip.164746.xyz
 104.17.137.210	https://ip.164746.xyz
 104.19.14.217	https://ip.164746.xyz
