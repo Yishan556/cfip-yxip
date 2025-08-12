@@ -18,11 +18,10 @@ logging.basicConfig(
 
 URLS = [
     'https://cf.090227.xyz',
-    'https://ipdb.api.030101.xyz/?type=bestproxy&country=true',
     'https://ipdb.api.030101.xyz/?type=bestcf&country=true',
+    'https://ipdb.api.030101.xyz/?type=bestproxy&country=true',
     'https://ip.164746.xyz',
     'https://ipdb.api.030101.xyz/?type=cfv4;cfv6&country=true',
-    'https://www.wetest.vip/page/cloudflare/address_v6.html',
     'https://www.wetest.vip/page/cloudflare/address_v4.html'
 ]
 
