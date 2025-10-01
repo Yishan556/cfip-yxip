@@ -17,6 +17,7 @@ logging.basicConfig(
 )
 
 URLS = [
+    'https://github.com/JiangXi9527/CNJX/blob/main/nihao.txt',
     'https://ip.164746.xyz',
     'https://www.wetest.vip/page/cloudflare/address_v4.html',
     'https://ipdb.api.030101.xyz/?type=bestcf&country=true',
@@ -25,10 +26,10 @@ URLS = [
     'https://ipdb.api.030101.xyz/?type=bestproxy&country=true'
 ]
 
-# IPv4 + IPv6 正则
-IP_PATTERN = re.compile(
-    r'(?:\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b)|'  # IPv4
-    r'(?:\b(?:[A-Fa-f0-9]{1,4}:){2,7}[A-Fa-f0-9]{1,4}\b)'  # IPv6
+# IPv4 + IPv6 + 端口号正则
+IP_PORT_PATTERN = re.compile(
+    r'(?:\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b(?::\d+)?)|'  # IPv4 + 可选端口
+    r'(?:\b(?:[A-Fa-f0-9]{1,4}:){2,7}[A-Fa-f0-9]{1,4}\b(?::\d+)?)'  # IPv6 + 可选端口
 )
 
 MAX_PER_SITE = 20  # 每个站点最大抓取数量（总和）
@@ -77,13 +78,15 @@ def fetch_ips_in_order(session, url, last_request_times):
     try:
         resp = session.get(url, timeout=5)
         if resp.status_code == 200 and resp.text:
-            matches = IP_PATTERN.findall(resp.text)
-            for raw_ip in matches:
-                ip_str = normalize_and_validate_ip(raw_ip)
-                if not ip_str:
-                    continue
-                if ip_str not in (ip for ip, _ in collected):  # 站点内去重
-                    collected.append((ip_str, url))
+            matches = IP_PORT_PATTERN.findall(resp.text)
+            for raw_ip_port in matches:
+                ip_str = normalize_and_validate_ip(raw_ip_port.split(":")[0])  # 仅提取IP部分
+                port = raw_ip_port.split(":")[1] if len(raw_ip_port.split(":")) > 1 else None  # 提取端口（如果有）
+                
+                if ip_str:
+                    ip_with_port = f"{ip_str}:{port}" if port else ip_str
+                    if ip_with_port not in (ip for ip, _ in collected):  # 站点内去重
+                        collected.append((ip_with_port, url))
                 if len(collected) >= MAX_PER_SITE:
                     break
         else:
