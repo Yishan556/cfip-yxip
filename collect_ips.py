@@ -17,7 +17,6 @@ logging.basicConfig(
 )
 
 URLS = [
-    'https://vps789.com/cfip/?remarks=domain',
     'https://ip.164746.xyz',
     'https://www.wetest.vip/page/cloudflare/address_v4.html',
     'https://ipdb.api.030101.xyz/?type=bestcf&country=true',
