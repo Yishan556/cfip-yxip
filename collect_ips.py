@@ -18,6 +18,7 @@ logging.basicConfig(
 
 URLS = [
     'https://bestip.badking.pp.ua',
+    'https://github.com/JiangXi9527/CNJX/blob/main/nihao.txt',
     'https://cf.090227.xyz',
     'https://ip.164746.xyz',
     'https://www.wetest.vip/page/cloudflare/address_v4.html',
