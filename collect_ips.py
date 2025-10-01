@@ -20,11 +20,10 @@ URLS = [
     'https://bestip.badking.pp.ua',
     'https://cf.090227.xyz',
     'https://ip.164746.xyz',
-    'https://www.wetest.vip/page/cloudflare/address_v4.html'
+    'https://www.wetest.vip/page/cloudflare/address_v4.html',
     'https://ipdb.api.030101.xyz/?type=bestcf&country=true',
     'https://ipdb.api.030101.xyz/?type=cfv4;cfv6&country=true',
     'https://ipdb.api.030101.xyz/?type=bestproxy&country=true'
-    
 ]
 
 # IPv4 + IPv6 正则
@@ -52,9 +51,14 @@ def create_session(retries=2, backoff_factor=0.5, status_forcelist=(500, 502, 50
     return session
 
 def normalize_and_validate_ip(raw: str):
+    # 去掉首尾空格
+    raw = raw.strip()
     try:
-        ip_obj = ipaddress.ip_address(raw.strip())
-        return str(ip_obj)
+        ip_obj = ipaddress.ip_address(raw)
+        if ip_obj.version == 6:
+            # 如果是IPv6地址，添加方括号
+            return f"[{str(ip_obj)}]"
+        return str(ip_obj)  # IPv4直接返回
     except ValueError:
         return None
 
