@@ -25,13 +25,17 @@ URLS = [
     'https://ipdb.api.030101.xyz/?type=bestproxy&country=true'
 ]
 
-# IPv4 + IPv6 正则
-IP_PATTERN = re.compile(
-    r'(?:\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b)|'  # IPv4
+# IPv4 + IPv6 + 可选端口
+IP_PORT_PATTERN = re.compile(
+    r'('
+    r'(?:\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b)'        # IPv4
+    r'|'
     r'(?:\b(?:[A-Fa-f0-9]{1,4}:){2,7}[A-Fa-f0-9]{1,4}\b)'  # IPv6
+    r')'
+    r'(?::(\d{1,5}))?'  # 可选端口
 )
 
-MAX_PER_SITE = 20  # 每个站点最大抓取数量（总和）
+MAX_PER_SITE = 20  # 每个站点最大抓取数量
 
 def create_session(retries=2, backoff_factor=0.5, status_forcelist=(500, 502, 503, 504)):
     session = requests.Session()
@@ -49,15 +53,24 @@ def create_session(retries=2, backoff_factor=0.5, status_forcelist=(500, 502, 50
     })
     return session
 
-def normalize_and_validate_ip(raw: str):
-    # 去掉首尾空格
-    raw = raw.strip()
+def normalize_and_validate_ip(raw_ip: str, raw_port: str = None):
     try:
-        ip_obj = ipaddress.ip_address(raw)
+        ip_obj = ipaddress.ip_address(raw_ip)
+        if raw_port:
+            port = int(raw_port)
+            if not (0 < port <= 65535):
+                return None
+        else:
+            port = None
+
         if ip_obj.version == 6:
-            # 如果是IPv6地址，添加方括号
-            return f"[{str(ip_obj)}]"
-        return str(ip_obj)  # IPv4直接返回
+            if port:
+                return f"[{ip_obj}]:{port}"
+            return f"[{ip_obj}]"
+        else:
+            if port:
+                return f"{ip_obj}:{port}"
+            return str(ip_obj)
     except ValueError:
         return None
 
@@ -77,9 +90,9 @@ def fetch_ips_in_order(session, url, last_request_times):
     try:
         resp = session.get(url, timeout=5)
         if resp.status_code == 200 and resp.text:
-            matches = IP_PATTERN.findall(resp.text)
-            for raw_ip in matches:
-                ip_str = normalize_and_validate_ip(raw_ip)
+            matches = IP_PORT_PATTERN.findall(resp.text)
+            for raw_ip, raw_port in matches:
+                ip_str = normalize_and_validate_ip(raw_ip, raw_port)
                 if not ip_str:
                     continue
                 if ip_str not in (ip for ip, _ in collected):  # 站点内去重
