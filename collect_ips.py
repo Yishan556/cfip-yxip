@@ -21,8 +21,7 @@ URLS = [
     'https://www.wetest.vip/page/cloudflare/address_v4.html',
     'https://ipdb.api.030101.xyz/?type=bestcf&country=true',
     'https://ipdb.api.030101.xyz/?type=cfv4;cfv6&country=true',
-    'https://bestip.badking.pp.ua',
-    'https://ipdb.api.030101.xyz/?type=bestproxy&country=true'
+    'https://bestip.badking.pp.ua'
 ]
 
 # IPv4 + IPv6 + 可选端口
