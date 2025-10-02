@@ -20,7 +20,6 @@ URLS = [
     'https://ip.164746.xyz',
     'https://www.wetest.vip/page/cloudflare/address_v4.html',
     'https://ipdb.api.030101.xyz/?type=bestcf&country=true',
-    'https://ipdb.api.030101.xyz/?type=cfv4;cfv6&country=true',
     'https://bestip.badking.pp.ua'
 ]
 
