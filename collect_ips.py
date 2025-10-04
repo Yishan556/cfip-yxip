@@ -19,6 +19,7 @@ logging.basicConfig(
 URLS = [
     'https://ip.164746.xyz',
     'https://www.wetest.vip/page/cloudflare/address_v4.html',
+    'https://api.urlce.com/cloudflare.html',
     'https://ipdb.api.030101.xyz/?type=bestcf&country=true',
     'https://bestip.badking.pp.ua'
 ]
